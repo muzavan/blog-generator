@@ -10,6 +10,9 @@ namespace Wordpress.Crawler
     {
         static void Main(string[] args)
         {
+            var url = "http://pandji.com/walk-away";
+            var crawler = new Wordpress.Business.Crawling.WebCrawler(url);
+            crawler.Crawl();
         }
     }
 }
