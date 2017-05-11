@@ -31,10 +31,10 @@ namespace Wordpress.Business.Crawling
 
         public int Crawl()
         {
-            int count = 0;
+            int count = 1;
             string nextUrl = _latestPostUrl;
             
-            while(!string.IsNullOrWhiteSpace(nextUrl) && count < _postLimit)
+            while(!string.IsNullOrWhiteSpace(nextUrl) && count <= _postLimit)
             {
                 if(_printProgress){
                     Console.WriteLine(string.Format("{0}. {1}",count,nextUrl));
@@ -86,7 +86,7 @@ namespace Wordpress.Business.Crawling
             }
 
             // Write Title and Content to XML
-            _WritePost(titleString.ToString(),contentString.ToString());
+            _WritePost(url, titleString.ToString(),contentString.ToString());
 
             return nextUrl;
         }
@@ -105,7 +105,7 @@ namespace Wordpress.Business.Crawling
             return htmlText;
         }
 
-        private void _WritePost(string title, string content)
+        private void _WritePost(string url, string title, string content)
         {
             if(_xmlDoc.FirstChild == null)
             {
@@ -115,11 +115,14 @@ namespace Wordpress.Business.Crawling
 
             var posts = _xmlDoc.FirstChild;
             var post = _xmlDoc.CreateElement("post");
+            var urlNode = _xmlDoc.CreateElement("url");
+            urlNode.InnerText = url;
             var titleNode = _xmlDoc.CreateElement("title");
             titleNode.InnerText = title;
             var contentNode = _xmlDoc.CreateElement("content");
             contentNode.InnerText = content;
 
+            post.AppendChild(urlNode);
             post.AppendChild(titleNode);
             post.AppendChild(contentNode);
 
