@@ -10,6 +10,8 @@ namespace Wordpress.Crawler
     {
         static void Main(string[] args)
         {
+            // Please configure your project base path in AppConstant.PROJ_PATH, uncomment below config
+            // Wordpress.Business.Util.AppConstant.PROJ_PATH = "";
             var url = "http://pandji.com/walk-away";
             var crawler = new Wordpress.Business.Crawling.WebCrawler(url);
             crawler.Crawl();
