@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wordpress.Business", "Wordpress.Business\Wordpress.Business.csproj", "{374A9309-A1D0-4C18-90EA-60E8922C182C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wordpress.Main", "Wordpress.Crawler\Wordpress.Crawler\Wordpress.Main.csproj", "{7A6C6A89-E3FA-4803-A36A-2A731C45AC62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{374A9309-A1D0-4C18-90EA-60E8922C182C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{374A9309-A1D0-4C18-90EA-60E8922C182C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{374A9309-A1D0-4C18-90EA-60E8922C182C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{374A9309-A1D0-4C18-90EA-60E8922C182C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A6C6A89-E3FA-4803-A36A-2A731C45AC62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A6C6A89-E3FA-4803-A36A-2A731C45AC62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A6C6A89-E3FA-4803-A36A-2A731C45AC62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A6C6A89-E3FA-4803-A36A-2A731C45AC62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
