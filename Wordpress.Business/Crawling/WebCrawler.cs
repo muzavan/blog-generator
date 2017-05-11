@@ -17,6 +17,7 @@ namespace Wordpress.Business.Crawling
         private string _latestPostUrl;
         private int _postLimit;
         private XmlDocument _xmlDoc;
+        private bool _printProgress;
         #endregion
 
         #region Public Method
@@ -35,10 +36,21 @@ namespace Wordpress.Business.Crawling
             
             while(!string.IsNullOrWhiteSpace(nextUrl) && count < _postLimit)
             {
+                if(_printProgress){
+                    Console.WriteLine(string.Format("{0}. {1}",count,nextUrl));
+                }
                 nextUrl = _ScrapeUrl(nextUrl);
                 count++;
             }
             return count;
+        }
+
+        public bool PrintProgress
+        {
+            set
+            {
+                _printProgress = value;
+            }
         }
         #endregion
 

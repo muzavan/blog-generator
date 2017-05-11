@@ -14,6 +14,7 @@ namespace Wordpress.Crawler
             // Wordpress.Business.Util.AppConstant.PROJ_PATH = "";
             var url = "http://pandji.com/walk-away";
             var crawler = new Wordpress.Business.Crawling.WebCrawler(url);
+            crawler.PrintProgress = true; // comment this line if you dont want to print the progress
             crawler.Crawl();
         }
     }
