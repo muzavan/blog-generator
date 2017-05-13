@@ -11,9 +11,11 @@ namespace Wordpress.Generator
     {
         static void Main(string[] args)
         {
-            var generator = new DictionaryBuilder();
-            generator.BuildDictionary();
+            var dictBuilder = new DictionaryBuilder();
+            dictBuilder.ReadDictionary();
 
+            var generator = new Wordpress.Business.Generating.Generator(dictBuilder.Dictionary);
+            generator.Generate(20);
 
         }
     }

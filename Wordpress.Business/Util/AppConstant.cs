@@ -23,5 +23,6 @@ namespace Wordpress.Business.Util
     public class GeneratingConstant
     {
         public static string DICT_PATH = string.Format("{0}{1}", AppConstant.PROJ_PATH, "Data\\words-dictionary.xml");
+        public static string GEN_PATH = string.Format("{0}{1}", AppConstant.PROJ_PATH, "Data\\generated-posts.xml");
     }
 }
