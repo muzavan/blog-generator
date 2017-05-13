@@ -1,5 +1,5 @@
 # blog-generator
-Blog Generator is blog generation executable which used markov chain based on previous posts on blog, to create new post. This is inspired by my fellow [Calvin] (https://github.com/calvinsadewa/poem_generator).
+Blog Generator is blog generation executable which used markov chain based on previous posts on blog, to create new post. This is inspired by my fellow [Calvin](https://github.com/calvinsadewa/poem_generator).
 
 # Configuration
 
@@ -45,7 +45,7 @@ Please configure the Program.cs accordingly, by defining last post url from blog
 ```
 
 ## Wordpress.Generator
-This solution will generate content based on data you crawled from previous solution. 
+This solution will generate content based on data you crawled from previous solution. The result can be seen in `<proj>\Data\generated-posts.xml`, while the dictionary will be saved in `<proj>\Data\words-dictionary.xml`.
 
 Please configure the Program.cs accordingly.
 ```
