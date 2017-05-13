@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace Wordpress.Business.Generating
 {
-    class Generator
+    public class Generator
     {
+        #region Private Property
+
+        #endregion
+
+        #region Public Method
+
+        #endregion
+
+        #region Private Method
+
+        #endregion
     }
 }
