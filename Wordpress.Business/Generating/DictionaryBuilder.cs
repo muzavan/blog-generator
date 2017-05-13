@@ -13,13 +13,13 @@ namespace Wordpress.Business.Generating
     {
         #region Private Property
         private XmlDocument _xmlDoc;
-        private Dictionary<string, Dictionary<string, int>> _wordDictionary;
+        private Dictionary<string, Dictionary<string, double>> _doubleWordDictionary;
         #endregion
 
         #region Public Method
-        public Dictionary<string, Dictionary<string, int>> Dictionary{
+        public Dictionary<string, Dictionary<string, double>> Dictionary{
             get{
-                return _wordDictionary;
+                return _doubleWordDictionary;
             }
         }
         public DictionaryBuilder()
@@ -27,12 +27,12 @@ namespace Wordpress.Business.Generating
             _xmlDoc = new XmlDocument();
             _xmlDoc.Load(CrawlingConstant.XML_PATH);
 
-            _wordDictionary = new Dictionary<string, Dictionary<string, int>>();
+            _doubleWordDictionary = new Dictionary<string, Dictionary<string, double>>();
         }
 
         public void BuildDictionary(bool persist = true)
         {
-            _wordDictionary.Clear();
+            _doubleWordDictionary.Clear();
             _BuildDictionary();
 
             if(persist)
@@ -46,7 +46,7 @@ namespace Wordpress.Business.Generating
         /// </summary>
         public void ReadDictionary()
         {
-            _wordDictionary.Clear();
+            _doubleWordDictionary.Clear();
             _ReadDictionary();
         }
         #endregion
@@ -54,6 +54,7 @@ namespace Wordpress.Business.Generating
         #region Private Method
         private void _BuildDictionary()
         {
+            var intWordDictionary = new Dictionary<string, Dictionary<string, int>>();
             var postNodes = _xmlDoc.GetElementsByTagName("post");
             if(postNodes == null)
             {
@@ -77,20 +78,22 @@ namespace Wordpress.Business.Generating
                 for (var conIdx = 0; conIdx < words.Length; conIdx++ )
                 {
                     var word = words[conIdx];
-                    if(!_wordDictionary.ContainsKey(prevWord))
+                    if(!intWordDictionary.ContainsKey(prevWord))
                     {
-                        _wordDictionary[prevWord] = new Dictionary<string, int>();
+                        intWordDictionary[prevWord] = new Dictionary<string, int>();
                     }
-                    if (!_wordDictionary[prevWord].ContainsKey(word))
+                    if (!intWordDictionary[prevWord].ContainsKey(word))
                     {
-                        _wordDictionary[prevWord][word] = 0;
+                        intWordDictionary[prevWord][word] = 0;
                     }
 
                     // Increment the table
-                    _wordDictionary[prevWord][word] = _wordDictionary[prevWord][word] + 1;
+                    intWordDictionary[prevWord][word] = intWordDictionary[prevWord][word] + 1;
                     prevWord = word;
                 }
             }
+
+            _ToDoubleWordDictionary(intWordDictionary);
         }
 
         private void _WriteToXml()
@@ -99,7 +102,7 @@ namespace Wordpress.Business.Generating
 
             var wordsNode = _dictXmlWord.CreateElement("words");
 
-            foreach(var pair in _wordDictionary)
+            foreach(var pair in _doubleWordDictionary)
             {
                 var wordNode = _dictXmlWord.CreateElement("word");
                 wordNode.InnerText = pair.Key;
@@ -108,7 +111,7 @@ namespace Wordpress.Business.Generating
                 {
                     var nextNode = _dictXmlWord.CreateElement("next");
                     nextNode.SetAttribute("word",nextPair.Key);
-                    nextNode.SetAttribute("count", nextPair.Value.ToString());
+                    nextNode.SetAttribute("prob", nextPair.Value.ToString());
 
                     wordNode.AppendChild(nextNode);
                 }
@@ -131,15 +134,29 @@ namespace Wordpress.Business.Generating
             {
                 var wordNode = wordNodes.Item(idx);
                 var word1 = wordNode.InnerText;
-                _wordDictionary[word1] = new Dictionary<string, int>();
+                _doubleWordDictionary[word1] = new Dictionary<string, double>();
 
                 var nextNodes = wordNode.SelectNodes("next");
                 for (var cidx = 0; cidx < nextNodes.Count; cidx++)
                 {
                     var nextNode = nextNodes.Item(cidx) as XmlElement;
                     var word2 = nextNode.GetAttribute("word");
-                    var count = Convert.ToInt32(nextNode.GetAttribute("count"));
-                    _wordDictionary[word1][word2] = count;
+                    var count = Convert.ToDouble(nextNode.GetAttribute("prob"));
+                    _doubleWordDictionary[word1][word2] = count;
+                }
+            }
+        }
+
+        private void _ToDoubleWordDictionary(Dictionary<string, Dictionary<string, int>> intWordDictionary)
+        {
+            foreach (var pair in intWordDictionary)
+            {
+                _doubleWordDictionary[pair.Key] = new Dictionary<string, double>();
+                var sum = Convert.ToDouble(pair.Value.Sum(x => x.Value));
+                
+                foreach (var nextPair in pair.Value)
+                {
+                    _doubleWordDictionary[pair.Key][nextPair.Key] = nextPair.Value / sum;
                 }
             }
         }
