@@ -4,7 +4,7 @@ Blog Generator is blog generation executable which used markov chain based on pr
 # Configuration
 
 Please find the configuration for the projects below.
-```
+```C#
     public class AppConstant
     {
         public static string PROJ_PATH = "D:\\Proyek\\blog-generator\\"; // Change it to your project location (ending with\\) 
@@ -28,7 +28,7 @@ There are two solutions in this repository.
 This solution will help you to crawl content from blog (used to build the word dictionary later), the result can be seen in `<proj>\Data\crawled-posts.xml`
 
 Please configure the Program.cs accordingly, by defining last post url from blog you want to use.
-```
+```C#
     class Program
     {
         static void Main(string[] args)
@@ -48,7 +48,7 @@ Please configure the Program.cs accordingly, by defining last post url from blog
 This solution will generate content based on data you crawled from previous solution. The result can be seen in `<proj>\Data\generated-posts.xml`, while the dictionary will be saved in `<proj>\Data\words-dictionary.xml`.
 
 Please configure the Program.cs accordingly.
-```
+```C#
     class Program
     {
         static void Main(string[] args)
@@ -67,10 +67,13 @@ Please configure the Program.cs accordingly.
 
 # Example
 Currently, in `<proj>\Data` there are some example from my local test. I used [Pandji's blog](http://pandji.com) as my sample. 
+- [Crawled Posts](Data/crawled-posts.example.xml)
+- [Generated Posts](Data/generated-posts.example.xml)
+- [Word Dictionary](Data/words-dictionary.example.xml)
 
 # TODO
 1. Removing html encoded string from content.
 2. Adding stop words, currently generated content dont have proper stop word.
 3. Move configuration to external file, not constant file
-4. TODO : Adding dll and exe to Repo
-5. ?
+4. Adding dll and exe to Repo
+5. ?Update this list?
