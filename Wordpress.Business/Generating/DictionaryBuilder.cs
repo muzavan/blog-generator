@@ -32,12 +32,22 @@ namespace Wordpress.Business.Generating
 
         public void BuildDictionary(bool persist = true)
         {
+            _wordDictionary.Clear();
             _BuildDictionary();
 
             if(persist)
             {
                 _WriteToXml();
             }
+        }
+
+        /// <summary>
+        /// Call this method to initialize Word Dictionary by reading xml. Make sure you have the words-dictionary.xml filled
+        /// </summary>
+        public void ReadDictionary()
+        {
+            _wordDictionary.Clear();
+            _ReadDictionary();
         }
         #endregion
 
@@ -108,6 +118,30 @@ namespace Wordpress.Business.Generating
 
             _dictXmlWord.AppendChild(wordsNode);
             _dictXmlWord.Save(GeneratingConstant.DICT_PATH);
+        }
+
+        private void _ReadDictionary()
+        {
+            var _wordDoc = new XmlDocument();
+            _wordDoc.Load(GeneratingConstant.DICT_PATH);
+
+            var wordNodes = _wordDoc.SelectNodes("words/word");
+            
+            for (var idx = 0; idx < wordNodes.Count; idx++)
+            {
+                var wordNode = wordNodes.Item(idx);
+                var word1 = wordNode.InnerText;
+                _wordDictionary[word1] = new Dictionary<string, int>();
+
+                var nextNodes = wordNode.SelectNodes("next");
+                for (var cidx = 0; cidx < nextNodes.Count; cidx++)
+                {
+                    var nextNode = nextNodes.Item(cidx) as XmlElement;
+                    var word2 = nextNode.GetAttribute("word");
+                    var count = Convert.ToInt32(nextNode.GetAttribute("count"));
+                    _wordDictionary[word1][word2] = count;
+                }
+            }
         }
         #endregion
     }
