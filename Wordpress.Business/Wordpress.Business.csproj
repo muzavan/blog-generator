@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crawling\WebCrawler.cs" />
+    <Compile Include="Generating\DictionaryBuilder.cs" />
     <Compile Include="Generating\Generator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\AppConstant.cs" />
