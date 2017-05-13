@@ -12,10 +12,11 @@ namespace Wordpress.Generator
         static void Main(string[] args)
         {
             var dictBuilder = new DictionaryBuilder();
-            dictBuilder.ReadDictionary();
+            dictBuilder.BuildDictionary();
+            // dictBuilder.ReadDictionary(); // Used this one if you already build the dictionary, which you can check in GeneratingConstant.DICT_PATH xml
 
-            var generator = new Wordpress.Business.Generating.Generator(dictBuilder.Dictionary);
-            generator.Generate(20);
+            var generator = new Wordpress.Business.Generating.Generator(dictBuilder.Dictionary); // you can set the content size by adding param in this constructor, currently the default content size is 200 word.
+            generator.Generate(20); // 20 is the number of generated content
 
         }
     }
