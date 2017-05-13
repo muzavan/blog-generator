@@ -18,5 +18,6 @@ namespace Wordpress.Business.Util
         public static string PREVIOUS_SELECTOR = ".nav-previous > a[rel=\"prev\"]";
 
         public static string XML_PATH = string.Format("{0}{1}",AppConstant.PROJ_PATH,"Data\\crawled-posts.xml");
+        public static string DICT_PATH = string.Format("{0}{1}",AppConstant.PROJ_PATH,"Data\\words-dictionary.xml");
     }
 }
