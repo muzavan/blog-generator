@@ -71,8 +71,9 @@ namespace Wordpress.Business.Generating
                 var contentNode = postNode.LastChild as XmlElement;
 
                 // Remove non-alphabet and whitespaces, then trim it
-                var contentStr = whitespaceRegex.Replace(nonAlphaRegex.Replace(contentNode.InnerText.ToLower()," ")," ").Trim();
-                var words = contentStr.Split(' ');
+                var contentText = System.Net.WebUtility.HtmlDecode(contentNode.InnerText.ToLower());
+                var contentStr = whitespaceRegex.Replace(nonAlphaRegex.Replace(contentText, " "), " ").Trim();
+                var words = contentStr.Split(' '); 
                 
                 var prevWord = "";
                 for (var conIdx = 0; conIdx < words.Length; conIdx++ )
