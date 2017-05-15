@@ -72,8 +72,8 @@ Currently, in `<proj>\Data` there are some example from my local test. I used [P
 - [Word Dictionary](Data/words-dictionary.example.xml)
 
 # TODO
-1. Removing html encoded string from content.
-2. Adding stop words, currently generated content dont have proper stop word.
-3. Move configuration to external file, not constant file
-4. Adding dll and exe to Repo
-5. ?Update this list?
+- ~~Removing html encoded string from content.~~
+- Adding stop words, currently generated content dont have proper stop word.
+- Move configuration to external file, not constant file
+- Adding dll and exe to Repo
+- ?Update this list?
